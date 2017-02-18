@@ -10,8 +10,45 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.cokelime.snake.Main">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="14dp"
+        android:id="@+id/directionKeyHolder">
+
+        <Button
+            android:text="UP"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/upButton" />
+
+        <Button
+            android:text="Right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/rightButton"
+            android:layout_toRightOf="@+id/downButton"
+            android:layout_alignTop="@+id/downButton" />
+
+        <Button
+            android:text="Down"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/downButton"
+            android:layout_centerVertical="true"
+            android:layout_below="@+id/upButton"
+            android:layout_alignLeft="@+id/upButton" />
+
+        <Button
+            android:text="Left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/leftButton"
+            android:layout_toLeftOf="@+id/downButton"
+            android:layout_alignTop="@+id/downButton" />
+    </RelativeLayout>
 </RelativeLayout>
