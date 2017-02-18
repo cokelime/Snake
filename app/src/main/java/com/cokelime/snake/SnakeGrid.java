@@ -1,14 +1,15 @@
 package com.cokelime.snake;
 
 import android.content.Context;
+import android.view.View;
 
 /**
  * Created by Yichi.Chen on 2/18/2017.
  */
 
-public class View extends android.view.View {
+public class SnakeGrid extends View {
 
-    public View(Context context) {
+    public SnakeGrid(Context context) {
         super(context);
     }
 }
