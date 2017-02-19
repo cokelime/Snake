@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.util.AttributeSet;
 import android.view.View;
 
 /**
@@ -34,11 +35,20 @@ public class SnakeGrid extends View {
         paint.setColor(Color.BLACK);
     }
 
+    public SnakeGrid(Context context, AttributeSet attributeSet){
+
+        super(context, attributeSet);
+        rect =  new Rect();
+        paint = new Paint();
+
+        paint.setColor(Color.BLACK);
+    }
+
 
     @Override
     protected void onDraw(Canvas canvas) {
 
-        rect.set(rectX , rectY, rectX + rectScaleX, rectY + rectScaleY);
+        rect.set(rectX , rectY, rectX + 10, rectY + 10);
 
         canvas.drawRect(rect, paint);
 
