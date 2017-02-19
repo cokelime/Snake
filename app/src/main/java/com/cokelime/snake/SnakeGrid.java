@@ -14,6 +14,8 @@ import android.view.View;
 
 public class SnakeGrid extends View {
 
+    private static final int DELTA = 10;
+
     Rect rect;
 
     private int xMax;
@@ -63,10 +65,35 @@ public class SnakeGrid extends View {
         rectScaleY = yMax / 8;
     }
 
-    public void moveRight(int amount){
+    public void moveRight(){
 
-        rectX += amount;
+        if(rectX + DELTA < xMax) {
+            rectX += DELTA;
+            invalidate();
+        }
+    }
 
-        invalidate();
+    public void moveLeft(){
+
+        if(rectX - DELTA > 0){
+            rectX -= DELTA;
+            invalidate();
+        }
+
+    }
+
+    public void moveUp(){
+
+        if(rectY - DELTA > 0){
+            rectY -= DELTA;
+            invalidate();
+        }
+    }
+
+    public void moveDown(){
+        if(rectY + DELTA < yMax) {
+            rectY += DELTA;
+            invalidate();
+        }
     }
 }
