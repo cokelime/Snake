@@ -50,7 +50,7 @@ public class SnakeGrid extends View {
     @Override
     protected void onDraw(Canvas canvas) {
 
-        rect.set(rectX , rectY, rectX + 10, rectY + 10);
+        rect.set(rectX , rectY, rectX + 100, rectY + 100);
 
         canvas.drawRect(rect, paint);
 
@@ -60,6 +60,9 @@ public class SnakeGrid extends View {
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         xMax = w-1;
         yMax = h-1;
+
+        rectX = xMax/2;
+        rectY = yMax /2;
 
         rectScaleX = xMax / 8;
         rectScaleY = yMax / 8;
