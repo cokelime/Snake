@@ -24,7 +24,14 @@ public class Main extends Activity implements View.OnTouchListener{
         grid = (SnakeGrid) findViewById(R.id.grid);
 
         detector = new GestureDetector(this, onSwipeListener);
-        grid.setOnTouchListener(this);
+        grid.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                //Log.d(TAG, "onTouch: log event here jc");
+                detector.onTouchEvent(motionEvent);
+                return true;
+            }
+        });
 
         Button rightButton = (Button) findViewById(R.id.rightButton);
 
@@ -65,13 +72,6 @@ public class Main extends Activity implements View.OnTouchListener{
     }
 
     //http://stackoverflow.com/questions/13095494/how-to-detect-swipe-direction-between-left-right-and-up-down
-    //from this answer http://stackoverflow.com/a/26387629
-    @Override
-    public boolean onTouch(View view, MotionEvent motionEvent) {
-        //Log.d(TAG, "onTouch: log event here jc");
-        detector.onTouchEvent(motionEvent);
-        return true;
-    }
 
     private OnSwipeListener onSwipeListener = new OnSwipeListener() {
 
