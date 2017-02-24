@@ -27,6 +27,8 @@ public class SnakeGrid extends View {
     private int rectX = 0;
     private int rectY = 0;
 
+    private LastMove action = LastMove.right;
+
     Paint paint;
 
     public SnakeGrid(Context context) {
@@ -43,6 +45,7 @@ public class SnakeGrid extends View {
         rect =  new Rect();
         paint = new Paint();
 
+
         paint.setColor(Color.BLACK);
     }
 
@@ -53,15 +56,29 @@ public class SnakeGrid extends View {
         rect.set(rectX , rectY, rectX + 100, rectY + 10);
 
         canvas.drawRect(rect, paint);
-/*
+
         try{
-            Thread.sleep(1000);
+            Thread.sleep(500);
         }catch (InterruptedException ex){
 
         }
-
-        moveRight();
-        */
+        switch (getAction()){
+            case up:
+                moveUp();
+                break;
+            case down:
+                moveDown();
+                break;
+            case left:
+                moveLeft();
+                break;
+            case right:
+                moveRight();
+                break;
+            default:
+                moveRight();
+                break;
+        }
     }
 
 
@@ -107,5 +124,19 @@ public class SnakeGrid extends View {
             rectY += DELTA;
             invalidate();
         }
+    }
+
+
+    public LastMove getAction() {
+        return action;
+    }
+
+    public void setAction(LastMove action) {
+        this.action = action;
+    }
+
+
+    public enum LastMove {
+        up,down,left,right
     }
 }

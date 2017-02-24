@@ -15,6 +15,7 @@ public class Main extends Activity implements View.OnTouchListener{
     private SnakeGrid grid;
     private GestureDetector detector;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,26 +81,31 @@ public class Main extends Activity implements View.OnTouchListener{
             if (direction == Direction.left){
                 Log.d(TAG, "onSwipe: log event here left");
                 grid.moveLeft();
+                grid.setAction(SnakeGrid.LastMove.left);
                 return true;
             }
             else if (direction == Direction.right){
                 Log.d(TAG, "onSwipe: log event here right");
                 grid.moveRight();
+                grid.setAction(SnakeGrid.LastMove.right);
                 return true;
             }
             else if (direction == Direction.up){
                 Log.d(TAG, "onSwipe: log event here up");
                 grid.moveUp();
+                grid.setAction(SnakeGrid.LastMove.up);
                 return true;
             }
             else if (direction == Direction.down){
                 Log.d(TAG, "onSwipe: log event here down");
                 grid.moveDown();
+                grid.setAction(SnakeGrid.LastMove.down);
                 return true;
             }
 
             return super.onSwipe(direction);
         }
     };
+
 
 }
