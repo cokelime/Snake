@@ -80,27 +80,35 @@ public class Main extends Activity implements View.OnTouchListener{
             Log.d(TAG, "onSwipe");
             if (direction == Direction.left){
                 Log.d(TAG, "onSwipe: log event here left");
-                grid.moveLeft();
-                grid.setAction(SnakeGrid.LastMove.left);
-                return true;
+                if(grid.getAction() != SnakeGrid.LastMove.right) {
+                    grid.moveLeft();
+                    grid.setAction(SnakeGrid.LastMove.left);
+                    return true;
+                }
             }
             else if (direction == Direction.right){
                 Log.d(TAG, "onSwipe: log event here right");
-                grid.moveRight();
-                grid.setAction(SnakeGrid.LastMove.right);
-                return true;
+                if(grid.getAction() != SnakeGrid.LastMove.left) {
+                    grid.moveRight();
+                    grid.setAction(SnakeGrid.LastMove.right);
+                    return true;
+                }
             }
             else if (direction == Direction.up){
                 Log.d(TAG, "onSwipe: log event here up");
-                grid.moveUp();
-                grid.setAction(SnakeGrid.LastMove.up);
-                return true;
+                if(grid.getAction() != SnakeGrid.LastMove.down) {
+                    grid.moveUp();
+                    grid.setAction(SnakeGrid.LastMove.up);
+                    return true;
+                }
             }
             else if (direction == Direction.down){
                 Log.d(TAG, "onSwipe: log event here down");
-                grid.moveDown();
-                grid.setAction(SnakeGrid.LastMove.down);
-                return true;
+                if(grid.getAction() != SnakeGrid.LastMove.up) {
+                    grid.moveDown();
+                    grid.setAction(SnakeGrid.LastMove.down);
+                    return true;
+                }
             }
 
             return super.onSwipe(direction);
