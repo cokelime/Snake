@@ -2,12 +2,18 @@ package com.cokelime.snake;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 
-public class Main extends Activity {
+import static android.content.ContentValues.TAG;
+
+public class Main extends Activity implements View.OnTouchListener{
 
     private SnakeGrid grid;
+    private GestureDetector detector;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -15,6 +21,9 @@ public class Main extends Activity {
         setContentView(R.layout.activity_main);
 
         grid = (SnakeGrid) findViewById(R.id.grid);
+
+        detector = new GestureDetector(this, onSwipeListener);
+        grid.setOnTouchListener(this);
 
         Button rightButton = (Button) findViewById(R.id.rightButton);
 
@@ -53,4 +62,44 @@ public class Main extends Activity {
         });
 
     }
+
+    //http://stackoverflow.com/questions/13095494/how-to-detect-swipe-direction-between-left-right-and-up-down
+    //from this answer http://stackoverflow.com/a/26387629
+    @Override
+    public boolean onTouch(View view, MotionEvent motionEvent) {
+        //Log.d(TAG, "onTouch: log event here jc");
+        detector.onTouchEvent(motionEvent);
+        return true;
+    }
+
+    private OnSwipeListener onSwipeListener = new OnSwipeListener() {
+
+        @Override
+        public boolean onSwipe(Direction direction) {
+            Log.d(TAG, "onSwipe");
+            if (direction == Direction.left){
+                Log.d(TAG, "onSwipe: log event here left");
+                grid.moveLeft();
+                return true;
+            }
+            else if (direction == Direction.right){
+                Log.d(TAG, "onSwipe: log event here right");
+                grid.moveRight();
+                return true;
+            }
+            else if (direction == Direction.up){
+                Log.d(TAG, "onSwipe: log event here up");
+                grid.moveUp();
+                return true;
+            }
+            else if (direction == Direction.down){
+                Log.d(TAG, "onSwipe: log event here down");
+                grid.moveDown();
+                return true;
+            }
+
+            return super.onSwipe(direction);
+        }
+    };
+
 }
