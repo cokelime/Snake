@@ -27,7 +27,6 @@ public class Main extends Activity {
         grid.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                //Log.d(TAG, "onTouch: log event here jc");
                 detector.onTouchEvent(motionEvent);
                 return true;
             }
@@ -77,9 +76,9 @@ public class Main extends Activity {
 
         @Override
         public boolean onSwipe(Direction direction) {
-            Log.d(TAG, "onSwipe");
+            //Log.d(TAG, "onSwipe");
             if (direction == Direction.left){
-                Log.d(TAG, "onSwipe: log event here left");
+                //Log.d(TAG, "onSwipe: log event here left");
                 if(grid.getAction() != SnakeGrid.LastMove.right) {
                     grid.moveLeft();
                     grid.setAction(SnakeGrid.LastMove.left);
@@ -87,7 +86,7 @@ public class Main extends Activity {
                 }
             }
             else if (direction == Direction.right){
-                Log.d(TAG, "onSwipe: log event here right");
+                //Log.d(TAG, "onSwipe: log event here right");
                 if(grid.getAction() != SnakeGrid.LastMove.left) {
                     grid.moveRight();
                     grid.setAction(SnakeGrid.LastMove.right);
@@ -95,7 +94,7 @@ public class Main extends Activity {
                 }
             }
             else if (direction == Direction.up){
-                Log.d(TAG, "onSwipe: log event here up");
+                //Log.d(TAG, "onSwipe: log event here up");
                 if(grid.getAction() != SnakeGrid.LastMove.down) {
                     grid.moveUp();
                     grid.setAction(SnakeGrid.LastMove.up);
@@ -103,7 +102,7 @@ public class Main extends Activity {
                 }
             }
             else if (direction == Direction.down){
-                Log.d(TAG, "onSwipe: log event here down");
+                //Log.d(TAG, "onSwipe: log event here down");
                 if(grid.getAction() != SnakeGrid.LastMove.up) {
                     grid.moveDown();
                     grid.setAction(SnakeGrid.LastMove.down);
