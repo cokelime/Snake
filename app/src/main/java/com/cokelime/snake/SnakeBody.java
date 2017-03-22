@@ -13,22 +13,16 @@ public class SnakeBody {
     private int down;
     private Rect rect;
 
-    public SnakeBody(){}
-
-    public SnakeBody(Rect rect, int l, int t, int r, int d){
-        this.rect = rect;
+    public SnakeBody(int l, int t, int r, int d){
         this.left = l;
         this.top = t;
         this.right = r;
         this.down = d;
+        rect = new Rect(left,top,right,down);
     }
 
     public Rect getRect() {
         return rect;
-    }
-
-    public void setRect(Rect rect) {
-        this.rect = rect;
     }
 
     public int getLeft() {
@@ -37,6 +31,7 @@ public class SnakeBody {
 
     public void setLeft(int left) {
         this.left = left;
+        updateRect();
     }
 
     public int getTop() {
@@ -45,6 +40,7 @@ public class SnakeBody {
 
     public void setTop(int top) {
         this.top = top;
+        updateRect();
     }
 
     public int getRight() {
@@ -53,6 +49,7 @@ public class SnakeBody {
 
     public void setRight(int right) {
         this.right = right;
+        updateRect();
     }
 
     public int getDown() {
@@ -61,5 +58,11 @@ public class SnakeBody {
 
     public void setDown(int down) {
         this.down = down;
+        updateRect();
     }
+
+    private void updateRect(){
+        rect.set(left,top,right,down);
+    }
+
 }
