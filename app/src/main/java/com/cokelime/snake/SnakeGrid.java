@@ -73,19 +73,21 @@ public class SnakeGrid extends View {
         for (int i = snakes.size() - 1; i >= 0; i--) {
             //start with last and go from tail to head
             //update the last one with the coordinates of next until the head
-            String log;
+            String log = "";
             if (i - 1 >= 0) {
-                Rect current = snakes.get(i);
-                current = snakes.get(i - 1);
-                snakes.set(i, current);
-                canvas.drawRect(current, paint);
-                log = MessageFormat.format("currI= {2} X: {0}, Y: {1}: Right: {3}", current.left, rectY, i, current.right);
+                SnakeBody current = snakes.get(i - 1);
+
+                canvas.drawRect(current.getRect(), paint);
             } else {
                 //head at index 0, update it to the global position
-                //Rect head = snakes.get(i);
-                Rect rect = new Rect(rectX, rectY, rectX + SNAKE_BODY_WIDTH, rectY + SNAKE_BODY_WIDTH);
-                //rect.set(rectX, rectY, rectX + 10, rectY + 10);
-                snakes.set(i, rect);
+
+                SnakeBody snakeHead = snakes.get(0);
+
+
+                snakeHead.set(rectX, rectY, rectX + SNAKE_BODY_WIDTH, rectY + SNAKE_BODY_WIDTH);
+
+                Rect rect = snakeHead.getRect();
+
                 canvas.drawRect(rect, paint);
                 log = MessageFormat.format("currI= {2} X: {0}, Y: {1} Right: {3}", rect.left, rectY, i, rect.right);
             }

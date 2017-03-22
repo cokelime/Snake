@@ -14,10 +14,10 @@ public class SnakeBody {
     private Rect rect;
 
     public SnakeBody(int l, int t, int r, int d){
-        this.left = l;
-        this.top = t;
-        this.right = r;
-        this.down = d;
+        left = l;
+        top = t;
+        right = r;
+        down = d;
         rect = new Rect(left,top,right,down);
     }
 
@@ -63,6 +63,14 @@ public class SnakeBody {
 
     private void updateRect(){
         rect.set(left,top,right,down);
+    }
+
+    public void set(int l, int t, int r, int d){
+        left = l;
+        top = t;
+        right = r;
+        down = d;
+        updateRect();
     }
 
 }
