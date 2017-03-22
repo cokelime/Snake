@@ -10,7 +10,9 @@ import android.util.Log;
 import android.view.View;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 import static android.content.ContentValues.TAG;
 
@@ -21,8 +23,8 @@ import static android.content.ContentValues.TAG;
 public class SnakeGrid extends View {
 
     private static final int DELTA = 10;
-
-    Rect rect;
+    private static final int SNAKE_BODY_WIDTH = 10;
+    private static final int SNAKE_BODY_SEGEMENTS = 5;
 
     private int xMax;
     private int yMax;
@@ -33,71 +35,63 @@ public class SnakeGrid extends View {
     private int rectX = 0;
     private int rectY = 0;
 
+    enum LastMove {
+        up, down, left, right
+    }
+
     private LastMove action = LastMove.right;
 
     Paint paint;
 
-    private LinkedList<Rect> snakes;
+    private List<SnakeBody> snakes;
 
     private boolean firstRun = true;
 
     public SnakeGrid(Context context) {
         super(context);
-        rect = new Rect();
         paint = new Paint();
 
         paint.setColor(Color.BLACK);
-        snakes = new LinkedList<>();
+        initSnake();
     }
 
     public SnakeGrid(Context context, AttributeSet attributeSet) {
 
         super(context, attributeSet);
-        rect = new Rect();
         paint = new Paint();
 
 
         paint.setColor(Color.BLACK);
-        snakes = new LinkedList<>();
+        initSnake();
     }
 
 
     @Override
     protected void onDraw(Canvas canvas) {
         //initialize
-        if (firstRun) {
-            for (int i = 0; i < 5; i++) {
-                int currentX = rectX - DELTA * i;
-                rect = new Rect(currentX, rectY, currentX + 10, rectY + 10);
-                snakes.addLast(rect);
-                String log = MessageFormat.format("X: {0}, Y: {1}, currentX: {2}", rectX, rectY, currentX);
-                Log.d(TAG, log);
+
+        for (int i = snakes.size() - 1; i >= 0; i--) {
+            //start with last and go from tail to head
+            //update the last one with the coordinates of next until the head
+            String log;
+            if (i - 1 >= 0) {
+                Rect current = snakes.get(i);
+                current = snakes.get(i - 1);
+                snakes.set(i, current);
+                canvas.drawRect(current, paint);
+                log = MessageFormat.format("currI= {2} X: {0}, Y: {1}: Right: {3}", current.left, rectY, i, current.right);
+            } else {
+                //head at index 0, update it to the global position
+                //Rect head = snakes.get(i);
+                Rect rect = new Rect(rectX, rectY, rectX + SNAKE_BODY_WIDTH, rectY + SNAKE_BODY_WIDTH);
+                //rect.set(rectX, rectY, rectX + 10, rectY + 10);
+                snakes.set(i, rect);
                 canvas.drawRect(rect, paint);
+                log = MessageFormat.format("currI= {2} X: {0}, Y: {1} Right: {3}", rect.left, rectY, i, rect.right);
             }
-            firstRun = false;
-        } else {
-            for (int i = snakes.size() - 1; i >= 0; i--) {
-                //start with last and go from tail to head
-                //update the last one with the coordinates of next until the head
-                String log;
-                if (i - 1 >= 0) {
-                    Rect current = snakes.get(i);
-                    current = snakes.get(i - 1);
-                    snakes.set(i, current);
-                    canvas.drawRect(current, paint);
-                    log = MessageFormat.format("currI= {2} X: {0}, Y: {1}: Right: {3}", current.left, rectY, i, current.right);
-                } else {
-                    //head at index 0, update it to the global position
-                    //Rect head = snakes.get(i);
-                    Rect rect = new Rect(rectX, rectY, rectX + 10, rectY + 10);
-                    //rect.set(rectX, rectY, rectX + 10, rectY + 10);
-                    snakes.set(i, rect);
-                    canvas.drawRect(rect, paint);
-                    log = MessageFormat.format("currI= {2} X: {0}, Y: {1} Right: {3}", rect.left, rectY, i, rect.right);
-                }
-                Log.d(TAG, log);
-            }
+            Log.d(TAG, log);
         }
+
 
 
         //update
@@ -183,7 +177,19 @@ public class SnakeGrid extends View {
     }
 
 
-    public enum LastMove {
-        up, down, left, right
+    private void initSnake(){
+
+        if(snakes == null){
+
+            snakes = new ArrayList<>();
+
+            for (int i = 0; i < SNAKE_BODY_SEGEMENTS; i++) {
+                int currentX = rectX - DELTA * i;
+                snakes.add(new SnakeBody(currentX, rectY, currentX + SNAKE_BODY_WIDTH, rectY + SNAKE_BODY_WIDTH));
+
+            }
+        }
+
     }
+
 }
